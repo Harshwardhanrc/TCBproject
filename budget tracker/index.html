@@ -1,13 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>project</title>
-    <link rel="stylesheet" href="style.css">
+  <title>Budgeteer</title>
+  
 </head>
+
 <body>
-    
-    <script src="script.js"></script>
+
+<div class="app">
+
+  <header>
+    <h1>Budgeteer</h1>
+    <p id="subtitle">Your Personal Budget Tracker</p>
+  </header>
+
+  <div id="content"></div>
+
+  <nav>
+    <button onclick="showPage('records')">Records</button>
+    <button onclick="showPage('analysis')">Analysis</button>
+    <button onclick="showPage('add')">+</button>
+    <button onclick="showPage('budget')">Budget</button>
+    <button onclick="showPage('accounts')">Accounts</button>
+  </nav>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
