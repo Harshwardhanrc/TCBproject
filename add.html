@@ -21,15 +21,15 @@
     <form>
       <div>
         <label>Description:</label>
-        <input type="text" name="description" placeholder="Enter description" />
+        <input type="text" id="description" name="description" placeholder="Enter description" />
       </div>
       <div>
         <label>Amount (₹):</label>
-        <input type="number" name="amount" placeholder="Ente amount" />
+        <input type="number" id="amount" name="amount" placeholder="Enter amount" />
       </div>
       <div>
         <label>Category:</label>
-        <select name="category">
+        <select id="category" name="category">
           <option value="">Select category</option>
           <option>Food</option>
           <option>Transport</option>
@@ -43,11 +43,12 @@
       </div>
       <div>
         <label>Date:</label>
-        <input type="date" name="date" />
+        <input type="date" id="date" name="date" />
       </div>
-      <button type="submit">Save Expense</button>
+      <button type="button" onclick="addExpense()">Save Expense</button>
     </form>
   </div>
+  <script src="app.js"></script>
 </body>
 
 </html>
