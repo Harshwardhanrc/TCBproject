@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add Expense - Budget Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="app-container">
+    <h1>Budget Tracker</h1>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="expenses.html">Expenses</a>
+      <a href="add.html" class="active">Add Expense</a>
+      <a href="budget.html">Budget</a>
+    </nav>
+    <h2>Add Expense</h2>
+    <form>
+      <div>
+        <label>Description:</label>
+        <input type="text" name="description" placeholder="Enter description" />
+      </div>
+      <div>
+        <label>Amount (₹):</label>
+        <input type="number" name="amount" placeholder="Ente amount" />
+      </div>
+      <div>
+        <label>Category:</label>
+        <select name="category">
+          <option value="">Select category</option>
+          <option>Food</option>
+          <option>Transport</option>
+          <option>Housing</option>
+          <option>Health</option>
+          <option>Education</option>
+          <option>Shopping</option>
+          <option>Entertainment</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label>Date:</label>
+        <input type="date" name="date" />
+      </div>
+      <button type="submit">Save Expense</button>
+    </form>
+  </div>
+</body>
+
+</html>
