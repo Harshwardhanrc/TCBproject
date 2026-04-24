@@ -38,6 +38,11 @@ app.get("/expenses", async (req, res) => {
   res.json(data);
 });
 
+app.delete("/expenses/:id", async (req, res) => {
+  await Expense.findByIdAndDelete(req.params.id);
+  res.json({ message: "Deleted" });
+});
+
 app.post("/income", async (req, res) => {
   const newIncome = new Income(req.body);
   await newIncome.save();
