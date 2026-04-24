@@ -196,3 +196,6 @@ p.stat strong {
     color: var(--accent);
     font-size: 1.2rem;
 }
+hr {
+    margin: 1.5rem 0;
+}

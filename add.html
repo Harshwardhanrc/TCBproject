@@ -4,32 +4,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Add Expense - Budget Tracker</title>
+  <title>Add Transaction - Budget Tracker</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <div class="app-container">
     <h1>Budget Tracker</h1>
+
     <nav>
       <a href="dashboard.html">Dashboard</a>
       <a href="expenses.html">Expenses</a>
-      <a href="add.html" class="active">Add Expense</a>
+      <a href="add.html" class="active">Add Transaction</a>
       <a href="budget.html">Budget</a>
     </nav>
-    <h2>Add Expense</h2>
+
+    <h2>Add Transaction</h2>
+
+    <h3>Add Income</h3>
+
+    <div>
+      <label>Amount (₹):</label>
+      <input type="number" id="income-amount" placeholder="Enter amount" />
+    </div>
+
+    <div>
+      <label>Source:</label>
+      <select id="income-source">
+        <option value="bank">Bank</option>
+        <option value="wallet">Wallet</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Date:</label>
+      <input type="date" id="income-date" />
+    </div>
+
+    <button type="button" onclick="addIncome()">Add Income</button>
+
+    <hr />
+
+    <h3>Add Expense</h3>
+
     <form>
+      <input type="hidden" id="edit-id" value="" />
+
       <div>
         <label>Description:</label>
-        <input type="text" id="description" name="description" placeholder="Enter description" />
+        <input type="text" id="description" placeholder="Enter description" />
       </div>
+
       <div>
         <label>Amount (₹):</label>
-        <input type="number" id="amount" name="amount" placeholder="Enter amount" />
+        <input type="number" id="amount" placeholder="Enter amount" />
       </div>
+
       <div>
         <label>Category:</label>
-        <select id="category" name="category">
+        <select id="category">
           <option value="">Select category</option>
           <option>Food</option>
           <option>Transport</option>
@@ -41,13 +74,17 @@
           <option>Other</option>
         </select>
       </div>
+
       <div>
         <label>Date:</label>
-        <input type="date" id="date" name="date" />
+        <input type="date" id="date" />
       </div>
+
       <button type="button" onclick="addExpense()">Save Expense</button>
     </form>
+
   </div>
+
   <script src="app.js"></script>
 </body>
 
