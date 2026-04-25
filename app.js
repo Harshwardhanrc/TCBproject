@@ -79,7 +79,7 @@ async function displayTransactions() {
                 expenseTable.innerHTML += `
                 <tr>
                     <td>${e.description}</td>
-                    <td>₹${e.amount}</td>
+                    <td>₹${Number(e.amount).toLocaleString("en-IN")}</td>
                     <td>${e.category}</td>
                     <td>${e.date}</td>
                     <td>
@@ -97,7 +97,7 @@ async function displayTransactions() {
                 incomeTable.innerHTML += `
                 <tr>
                     <td>${i.description || "-"}</td>
-                    <td>₹${i.amount}</td>
+                    <td>₹${Number(i.amount).toLocaleString("en-IN")}</td>
                     <td>${i.source}</td>
                     <td>${i.date}</td>
                     <td>
@@ -141,16 +141,19 @@ async function showTotals() {
     const remaining = totalIncome - totalSpent;
 
     if (document.getElementById("total-income")) {
-        document.getElementById("total-income").textContent = "₹" + totalIncome;
+        document.getElementById("total-income").textContent =
+            "₹" + totalIncome.toLocaleString("en-IN");
     }
 
     if (document.getElementById("total-spent")) {
-        document.getElementById("total-spent").textContent = "₹" + totalSpent;
+        document.getElementById("total-spent").textContent =
+            "₹" + totalSpent.toLocaleString("en-IN");
     }
 
     const remainingEl = document.getElementById("remaining");
     if (remainingEl) {
-        remainingEl.textContent = "₹" + remaining;
+        remainingEl.textContent =
+            "₹" + remaining.toLocaleString("en-IN");
         remainingEl.style.color = remaining < 0 ? "red" : "#10b981";
     }
 }
