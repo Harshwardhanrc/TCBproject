@@ -61,6 +61,11 @@ app.get("/income", async (req, res) => {
   res.json(data);
 });
 
+app.delete("/income/:id", async (req, res) => {
+  await Income.findByIdAndDelete(req.params.id);
+  res.json({ message: "Income deleted" });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
