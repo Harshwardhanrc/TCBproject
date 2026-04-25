@@ -145,6 +145,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    min-width: 600px;
 }
 
 th, td {
@@ -198,4 +199,14 @@ p.stat strong {
 }
 hr {
     margin: 1.5rem 0;
+}
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+@media (max-width: 600px) {
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
 }
