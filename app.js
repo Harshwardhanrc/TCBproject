@@ -29,11 +29,12 @@ async function addExpense() {
 }
 
 async function addIncome() {
+    const description = document.getElementById("income-description").value;
     const amount = document.getElementById("income-amount").value;
     const source = document.getElementById("income-source").value;
     const date = document.getElementById("income-date").value;
 
-    if (!amount || isNaN(amount) || !date) {
+    if (!description || !amount || isNaN(amount) || !date) {
         alert("Enter valid amount");
         return;
     }
@@ -44,6 +45,7 @@ async function addIncome() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+            description,
             amount: Number(amount),
             source,
             date
@@ -51,7 +53,7 @@ async function addIncome() {
     });
 
     alert("Income added!");
-    window.location.href = "dashboard.html";
+    window.location.href = "expenses.html";
 }
 
 async function displayTransactions() {
