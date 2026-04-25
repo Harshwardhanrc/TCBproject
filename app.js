@@ -79,7 +79,9 @@ async function displayTransactions() {
                 expenseTable.innerHTML += `
                 <tr>
                     <td>${e.description}</td>
-                    <td>₹${Number(e.amount).toLocaleString("en-IN")}</td>
+                    <td style="color:#ef4444;">
+    ₹${Number(e.amount).toLocaleString("en-IN")}
+</td>
                     <td>${e.category}</td>
                     <td>${e.date}</td>
                     <td>
@@ -97,7 +99,9 @@ async function displayTransactions() {
                 incomeTable.innerHTML += `
                 <tr>
                     <td>${i.description || "-"}</td>
-                    <td>₹${Number(i.amount).toLocaleString("en-IN")}</td>
+                    <td style="color:#10b981;">
+    ₹${Number(i.amount).toLocaleString("en-IN")}
+</td>
                     <td>${i.source}</td>
                     <td>${i.date}</td>
                     <td>
@@ -143,11 +147,13 @@ async function showTotals() {
     if (document.getElementById("total-income")) {
         document.getElementById("total-income").textContent =
             "₹" + totalIncome.toLocaleString("en-IN");
+        document.getElementById("total-income").style.color = "#10b981";
     }
 
     if (document.getElementById("total-spent")) {
         document.getElementById("total-spent").textContent =
             "₹" + totalSpent.toLocaleString("en-IN");
+        document.getElementById("total-spent").style.color = "#ef4444";
     }
 
     const remainingEl = document.getElementById("remaining");
