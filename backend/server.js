@@ -46,7 +46,8 @@ app.delete("/expenses/:id", async (req, res) => {
 
 app.post("/income", async (req, res) => {
   const newIncome = new Income({
-    amount: Number(req.body.amount), 
+    description: req.body.description,   // 🔥 ADD THIS
+    amount: Number(req.body.amount),
     source: req.body.source,
     date: req.body.date
   });
