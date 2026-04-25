@@ -16,12 +16,12 @@
       <a href="budget.html" class="active">Budget</a>
     </nav>
     <h2>Set Monthly Budget</h2>
-    <form>
+    <form onsubmit="saveBudget(); return false;">
         <div>
             <label>Budget Amount (₹):</label>
             <input type="number" id="budget-input" name="budget" placeholder="Enter your budget amount" />
         </div>
-        <button type="button" onclick="saveBudget()">Update Budget</button>
+        <button type="submit">Update Budget</button>
     </form>
   </div>
   <script src="app.js"></script>

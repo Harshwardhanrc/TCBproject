@@ -80,8 +80,8 @@ async function displayTransactions() {
                 <tr>
                     <td>${e.description}</td>
                     <td style="color:#ef4444;">
-    ₹${Number(e.amount).toLocaleString("en-IN")}
-</td>
+                        ₹${Number(e.amount).toLocaleString("en-IN")}
+                    </td>
                     <td>${e.category}</td>
                     <td>${e.date}</td>
                     <td>
@@ -100,8 +100,8 @@ async function displayTransactions() {
                 <tr>
                     <td>${i.description || "-"}</td>
                     <td style="color:#10b981;">
-    ₹${Number(i.amount).toLocaleString("en-IN")}
-</td>
+                        ₹${Number(i.amount).toLocaleString("en-IN")}
+                    </td>
                     <td>${i.source}</td>
                     <td>${i.date}</td>
                     <td>
@@ -131,6 +131,20 @@ async function deleteTransaction(id, type) {
     displayTransactions();
 }
 
+function saveBudget() {
+    const budget = document.getElementById("budget-input").value;
+
+    if (!budget || isNaN(budget)) {
+        alert("Enter valid budget");
+        return;
+    }
+
+    localStorage.setItem("budget", budget);
+
+    alert("Budget updated!");
+    window.location.href = "dashboard.html";
+}
+
 async function showTotals() {
     const [expensesRes, incomeRes] = await Promise.all([
         fetch(`${BASE_URL}/expenses`),
@@ -143,6 +157,13 @@ async function showTotals() {
     const totalSpent = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
     const totalIncome = incomes.reduce((sum, i) => sum + Number(i.amount), 0);
     const remaining = totalIncome - totalSpent;
+
+    const budget = localStorage.getItem("budget") || 0;
+
+    if (document.getElementById("budget-display")) {
+        document.getElementById("budget-display").textContent =
+            "₹" + Number(budget).toLocaleString("en-IN");
+    }
 
     if (document.getElementById("total-income")) {
         document.getElementById("total-income").textContent =
@@ -163,6 +184,7 @@ async function showTotals() {
         remainingEl.style.color = remaining < 0 ? "red" : "#10b981";
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     displayTransactions();
