@@ -4,20 +4,40 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Expenses - Budget Tracker</title>
+    <title>Transactions - Budget Tracker</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <div class="app-container">
         <h1>Budget Tracker</h1>
+
         <nav>
             <a href="dashboard.html">Dashboard</a>
-            <a href="expenses.html" class="active">Expenses</a>
+            <a href="expenses.html" class="active">Transactions</a>
             <a href="add.html">Add Transaction</a>
             <a href="budget.html">Budget</a>
         </nav>
-        <h3>Recent Expenses</h3>
+
+        <h3>Income</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Source</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="income-tbody"></tbody>
+            </table>
+        </div>
+
+        <hr />
+
+        <h3>Expenses</h3>
         <div class="table-container">
             <table>
                 <thead>
@@ -29,11 +49,12 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody id="expense-tbody">
-                </tbody>
+                <tbody id="expense-tbody"></tbody>
             </table>
         </div>
+
     </div>
+
     <script src="app.js"></script>
 </body>
 

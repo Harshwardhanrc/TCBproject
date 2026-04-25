@@ -18,7 +18,7 @@ async function addExpense() {
         },
         body: JSON.stringify({
             description,
-            amount: Number(amount),   
+            amount: Number(amount),
             category,
             date
         })
@@ -44,7 +44,7 @@ async function addIncome() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            amount: Number(amount),   
+            amount: Number(amount),
             source,
             date
         })
@@ -54,36 +54,75 @@ async function addIncome() {
     window.location.href = "dashboard.html";
 }
 
-async function displayExpenses() {
-    const res = await fetch(`${BASE_URL}/expenses`);
-    const expenses = await res.json();
+async function displayTransactions() {
+    const expenseTable = document.getElementById("expense-tbody");
+    const incomeTable = document.getElementById("income-tbody");
 
-    const tableBody = document.getElementById("expense-tbody");
-    if (!tableBody) return;
+    if (!expenseTable && !incomeTable) return;
 
-    tableBody.innerHTML = "";
+    if (expenseTable) expenseTable.innerHTML = "";
+    if (incomeTable) incomeTable.innerHTML = "";
 
-    expenses.forEach((expense) => {
-        tableBody.innerHTML += `
-        <tr>
-            <td>${expense.description}</td>
-            <td>₹${expense.amount}</td>
-            <td>${expense.category}</td>
-            <td>${expense.date}</td>
-            <td>
-                <button onclick="deleteExpense('${expense._id}')">Delete</button>
-            </td>
-        </tr>
-        `;
-    });
+    try {
+        const [expenseRes, incomeRes] = await Promise.all([
+            fetch(`${BASE_URL}/expenses`),
+            fetch(`${BASE_URL}/income`)
+        ]);
+
+        const expenses = await expenseRes.json();
+        const incomes = await incomeRes.json();
+
+        if (expenseTable) {
+            expenses.forEach((e) => {
+                expenseTable.innerHTML += `
+                <tr>
+                    <td>${e.description}</td>
+                    <td>₹${e.amount}</td>
+                    <td>${e.category}</td>
+                    <td>${e.date}</td>
+                    <td>
+                        <button onclick="deleteTransaction('${e._id}', 'expense')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+        }
+
+        if (incomeTable) {
+            incomes.forEach((i) => {
+                incomeTable.innerHTML += `
+                <tr>
+                    <td>${i.description || "-"}</td>
+                    <td>₹${i.amount}</td>
+                    <td>${i.source}</td>
+                    <td>${i.date}</td>
+                    <td>
+                        <button onclick="deleteTransaction('${i._id}', 'income')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+        }
+
+    } catch (err) {
+        console.log("Error loading data:", err);
+    }
 }
 
-async function deleteExpense(id) {
-    await fetch(`${BASE_URL}/expenses/${id}`, {
+async function deleteTransaction(id, type) {
+    const url = type === "expense"
+        ? `${BASE_URL}/expenses/${id}`
+        : `${BASE_URL}/income/${id}`;
+
+    await fetch(url, {
         method: "DELETE"
     });
 
-    displayExpenses();
+    displayTransactions();
 }
 
 async function showTotals() {
@@ -115,6 +154,6 @@ async function showTotals() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    displayExpenses();
+    displayTransactions();
     showTotals();
 });

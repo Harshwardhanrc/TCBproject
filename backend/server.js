@@ -19,6 +19,7 @@ const ExpenseSchema = new mongoose.Schema({
 });
 
 const IncomeSchema = new mongoose.Schema({
+  description: String,
   amount: Number,
   source: String,
   date: String
