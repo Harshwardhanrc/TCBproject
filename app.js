@@ -6,6 +6,11 @@ async function addExpense() {
     const category = document.getElementById("category").value;
     const date = document.getElementById("date").value;
 
+    if (!description || !amount || isNaN(amount) || !category || !date) {
+        alert("Please fill all fields correctly");
+        return;
+    }
+
     await fetch(`${BASE_URL}/expense`, {
         method: "POST",
         headers: {
@@ -13,7 +18,7 @@ async function addExpense() {
         },
         body: JSON.stringify({
             description,
-            amount,
+            amount: Number(amount),   
             category,
             date
         })
@@ -28,8 +33,8 @@ async function addIncome() {
     const source = document.getElementById("income-source").value;
     const date = document.getElementById("income-date").value;
 
-    if (!amount || !date) {
-        alert("Please fill all fields");
+    if (!amount || isNaN(amount) || !date) {
+        alert("Enter valid amount");
         return;
     }
 
@@ -39,7 +44,7 @@ async function addIncome() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            amount,
+            amount: Number(amount),   
             source,
             date
         })
@@ -90,9 +95,8 @@ async function showTotals() {
     const expenses = await expensesRes.json();
     const incomes = await incomeRes.json();
 
-    const totalSpent = expenses.reduce((sum, e) => sum + e.amount, 0);
-    const totalIncome = incomes.reduce((sum, i) => sum + i.amount, 0);
-
+    const totalSpent = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+    const totalIncome = incomes.reduce((sum, i) => sum + Number(i.amount), 0);
     const remaining = totalIncome - totalSpent;
 
     if (document.getElementById("total-income")) {
