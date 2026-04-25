@@ -203,6 +203,11 @@ hr {
 .table-container {
     width: 100%;
     overflow-x: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+.table-container::-webkit-scrollbar {
+    display: none;
 }
 @media (max-width: 600px) {
     th, td {
