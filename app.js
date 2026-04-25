@@ -131,7 +131,7 @@ async function deleteTransaction(id, type) {
     displayTransactions();
 }
 
-function saveBudget() {
+async function saveBudget() {
     const budget = document.getElementById("budget-input").value;
 
     if (!budget || isNaN(budget)) {
@@ -139,9 +139,28 @@ function saveBudget() {
         return;
     }
 
-    localStorage.setItem("budget", budget);
+    await fetch(`${BASE_URL}/budget`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            amount: Number(budget)
+        })
+    });
 
     alert("Budget updated!");
+    window.location.href = "dashboard.html";
+}
+
+async function deleteBudget() {
+    if (!confirm("Delete your budget?")) return;
+
+    await fetch(`${BASE_URL}/budget`, {
+        method: "DELETE"
+    });
+
+    alert("Budget deleted!");
     window.location.href = "dashboard.html";
 }
 
@@ -153,12 +172,14 @@ async function showTotals() {
 
     const expenses = await expensesRes.json();
     const incomes = await incomeRes.json();
+    const budgetRes = await fetch(`${BASE_URL}/budget`);
+    const budgetData = await budgetRes.json();
+    const budget = budgetData.amount || 0;
 
     const totalSpent = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
     const totalIncome = incomes.reduce((sum, i) => sum + Number(i.amount), 0);
     const remaining = totalIncome - totalSpent;
 
-    const budget = localStorage.getItem("budget") || 0;
 
     if (document.getElementById("budget-display")) {
         document.getElementById("budget-display").textContent =
