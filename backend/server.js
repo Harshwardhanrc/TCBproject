@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -7,9 +8,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+mongoose.connect("mongodb+srv://harshwardhanc10_db_user:HarshwardhanMongo101@cluster0.t0mn14q.mongodb.net/?appName=Cluster0")
+.then(() => {
+    console.log("MongoDB Connected");
+})
+.catch((err) => {
+    console.log(err);
+});
 
 const ExpenseSchema = new mongoose.Schema({
   description: String,
@@ -32,6 +37,7 @@ const BudgetSchema = new mongoose.Schema({
 const Expense = mongoose.model("Expense", ExpenseSchema);
 const Income = mongoose.model("Income", IncomeSchema);
 const Budget = mongoose.model("Budget", BudgetSchema);
+
 
 app.post("/expense", async (req, res) => {
   const newExpense = new Expense(req.body);
@@ -102,3 +108,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
+

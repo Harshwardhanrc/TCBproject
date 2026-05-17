@@ -11,31 +11,41 @@
 <body>
   <div class="app-container">
     <h1>Budget Tracker</h1>
+
     <nav>
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="expenses.html">Transactions</a>
       <a href="add.html">Add Transaction</a>
       <a href="budget.html">Budget</a>
     </nav>
+
     <h2>Dashboard</h2>
 
-<p class="stat">
-  Monthly Budget: <strong id="budget-display">₹0</strong>
-</p>
+    <div class="stats-container">
 
-<p class="stat">
-  Total Income: <strong id="total-income">₹0</strong>
-</p>
+      <div class="stat-card">
+        <div class="stat-title">Monthly Budget</div>
+        <div class="stat-value remaining" id="budget-display">₹0</div>
+      </div>
 
-<p class="stat">
-  Total Spent: <strong id="total-spent">₹0</strong>
-</p>
+      <div class="stat-card">
+        <div class="stat-title">Total Income</div>
+        <div class="stat-value income" id="total-income">₹0</div>
+      </div>
 
-<p class="stat">
-  Remaining: <strong id="remaining">₹0</strong>
-</p>
+      <div class="stat-card">
+        <div class="stat-title">Total Spent</div>
+        <div class="stat-value expense" id="total-spent">₹0</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-title">Remaining</div>
+        <div class="stat-value remaining" id="remaining">₹0</div>
+      </div>
+
+    </div>
+
   </div>
+
   <script src="app.js"></script>
 </body>
-
-</html>
