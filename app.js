@@ -204,6 +204,67 @@ async function showTotals() {
             "₹" + remaining.toLocaleString("en-IN");
         remainingEl.style.color = remaining < 0 ? "red" : "#10b981";
     }
+
+    drawExpensePieChart(expenses);
+}
+
+function drawExpensePieChart(expenses) {
+    const canvas = document.getElementById("expense-pie-chart");
+    const legend = document.getElementById("expense-chart-legend");
+
+    if (!canvas || !legend) return;
+
+    const totals = expenses.reduce((acc, expense) => {
+        const category = expense.category || "Other";
+        acc[category] = (acc[category] || 0) + Number(expense.amount);
+        return acc;
+    }, {});
+
+    const labels = Object.keys(totals);
+    const values = labels.map((label) => totals[label]);
+    const total = values.reduce((sum, value) => sum + value, 0);
+    const ctx = canvas.getContext("2d");
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    legend.innerHTML = "";
+
+    if (!labels.length || total === 0) {
+        ctx.font = "16px Poppins, sans-serif";
+        ctx.fillStyle = "#94a3b8";
+        ctx.textAlign = "center";
+        ctx.fillText("No expenses yet", canvas.width / 2, canvas.height / 2);
+        legend.innerHTML = "<div class='chart-note'>Add expenses to see category data.</div>";
+        return;
+    }
+
+    const colors = ["#f59e0b", "#ef4444", "#22c55e", "#6366f1", "#14b8a6", "#fb7185", "#f97316"];
+    let startAngle = -0.5 * Math.PI;
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = Math.min(centerX, centerY) - 20;
+
+    labels.forEach((label, index) => {
+        const value = totals[label];
+        const sliceAngle = (value / total) * 2 * Math.PI;
+        const color = colors[index % colors.length];
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, startAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        startAngle += sliceAngle;
+
+        const legendItem = document.createElement("div");
+        legendItem.className = "chart-legend-item";
+        legendItem.innerHTML = `
+            <span class="legend-color" style="background:${color}"></span>
+            <span>${label}: ₹${value.toLocaleString("en-IN")}</span>
+        `;
+        legend.appendChild(legendItem);
+    });
 }
 
 
